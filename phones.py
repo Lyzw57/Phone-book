@@ -43,9 +43,26 @@ def load_phone_list():
             phones_list.append(row)
         infile.close() 
 
-
 def show_phones():
-    pass # TODO: display all phone number with its owners' names
+    """Printing out all the phone numbers with its owners' names.
+    """
+    show_phone(phone_header, "")
+    index = 1
+    for phone in phones_list:
+        show_phone(phone, index)
+        index += 1
+    print()
+
+def show_phone(phone, index):
+    """
+    Printing out formatted record with its index number.
+    
+    Arguments:
+        phone {list} -- list contaning name and phone number
+        index {int} -- index no. of the record
+    """
+    output_str = f"{index:>3} {phone[name_index]:<20} {phone[number_index]:>16}"
+    print(output_str)
 
 def create_phone():
     pass # TODO: create a record
@@ -69,7 +86,6 @@ def menu_choice():
 def main_loop():
     
     load_phone_list()
-    print(phones_list)
     
     while True:
         choice = menu_choice()
