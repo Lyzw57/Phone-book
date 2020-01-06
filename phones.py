@@ -24,22 +24,31 @@ number_index = 1
 phone_header = ["Name", "Phone Number"]
 
 def delete_phone():
-    # TODO: Deleting phone number    
+    pass # TODO: Deleting phone number    
 
 def edit_phone():
-    # TODO: editing record
+    pass # TODO: editing record
 
 def save_phone_list():
-    # TODO: save phone list
+    pass # TODO: save phone list
 
 def load_phone_list():
-    # TODO: load phone list
+    """
+    If path exist load phone list from simple csv file and store it into list of lists.
+    """
+    if os.access("data/myphones.csv",os.F_OK):
+        infile = open("data/myphones.csv")
+        read_phones = csv.reader(infile)
+        for row in read_phones:
+            phones_list.append(row)
+        infile.close() 
+
 
 def show_phones():
-    # TODO: display all phone number with its owners' names
+    pass # TODO: display all phone number with its owners' names
 
 def create_phone():
-    # TODO: create a record
+    pass # TODO: create a record
 
 def menu_choice():
     """ Find out what the user wants to do next. """
@@ -60,6 +69,7 @@ def menu_choice():
 def main_loop():
     
     load_phone_list()
+    print(phones_list)
     
     while True:
         choice = menu_choice()
