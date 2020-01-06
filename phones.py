@@ -15,6 +15,13 @@ Here is a first version.
 phones.py
 Version 1 -- builds the menu -- functions are empty
 """
+import os
+import csv
+
+phones_list = []
+name_index = 0
+number_index = 1
+phone_header = ["Name", "Phone Number"]
 
 def delete_phone():
     # TODO: Deleting phone number    
