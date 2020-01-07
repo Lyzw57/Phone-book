@@ -8,7 +8,7 @@ name_index = 0
 number_index = 1
 phone_header = ["Name", "Phone Number"]
 
-def is_choice_proper(which: str):
+def is_choice_proper(which: str): -> bool
     """Checking if selected index is valid.
 
     Arguments:
@@ -26,8 +26,17 @@ def is_choice_proper(which: str):
         return False
     return True
 
-def delete_phone():
-    pass # TODO: Deleting phone number    
+def delete_phone(which: str):
+    """delete selected record from phones_list
+    
+    Arguments:
+        which {str} -- record's index choice
+    """
+    if not is_choice_proper(which):
+        return
+    which = int(which)
+    del(phones_list[which-1])
+    print(f"Phone #{which} has been deleted.")
 
 def edit_phone():
     pass # TODO: editing record
