@@ -1,20 +1,5 @@
-"""
-A SMALL DATABASE APPLICATION USING WHAT WE'VE LEARNED.
-
-The following uses a CSV file to store the data for a small telephone directory.
-It is menu driven. That is, it presents a menu of choices. These choices are
-to show the whole directory, create a new entry for the directory, delete an
-entry from the directory, and edit an entry in the directory.
-"""
-
 # -phones.py *- coding: utf-8 -*-
-"""
-This was written as a basic program that did little at first.  Additional
-features were added until it was finished.
-Here is a first version.
-phones.py
-Version 1 -- builds the menu -- functions are empty
-"""
+
 import os
 import csv
 
@@ -22,6 +7,9 @@ phones_list = []
 name_index = 0
 number_index = 1
 phone_header = ["Name", "Phone Number"]
+
+def is_choice_proper():
+    choice = input("Which one")
 
 def delete_phone():
     pass # TODO: Deleting phone number    
@@ -108,7 +96,7 @@ def main_loop():
     save_phone_list()
     
 
-# The following makes this program start running at main_loop() 
+# The following makes this program start running at main_loop()
 # when executed as a stand-alone program.    
 if __name__ == '__main__':
     main_loop()
