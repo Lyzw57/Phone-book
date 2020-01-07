@@ -17,6 +17,7 @@ def is_choice_proper(which: str):
     Returns:
         {bool} -- True if argument is digit and index exist, False otherwise
     """
+    # FIXME: i don't like it. I'd like to change this funcion and remove changing to int eery time aswell.
     if not which.isdigit():
         print(f"{which} need to be number of record!")
         return False
@@ -34,12 +35,32 @@ def delete_phone(which: str):
     """
     if not is_choice_proper(which):
         return
-    which = int(which)
+    which = int(which) # FIXME: to change, it should be done in function.
     del(phones_list[which-1])
     print(f"Phone #{which} has been deleted.")
 
-def edit_phone():
-    pass # TODO: editing record
+def edit_phone(which: str):
+    """Edit record's name nad phone number, user can input it or press only enter to leave it unchagned.
+    
+    Arguments:
+        which {str} -- index of record to edit
+    """
+    if not is_choice_proper(which):
+        return
+    which = int(which) # FIXME: to change, it should be done in function.
+
+    phone = phones_list[which-1]
+
+    new_name = input(f"Name: {phones_list[name_index]} | New name: ")
+    if new_name == "":
+        new_name = phone[name_index]
+    
+    new_number = input(f"Phone: {phones_list[number_index]} | New phone: ")
+    if new_number == "":
+        new_number = phone[number_index]
+
+    phone = [new_name, new_number]
+    phones_list[which-1] = phone
 
 def save_phone_list():
     pass # TODO: save phone list
@@ -109,12 +130,13 @@ def main_loop():
         elif choice == 'n':
             create_phone()
         elif choice == 'd':
-            which = input("Which phone do you want to delete? ")
+            which = input("Which phone do you want to delete? ")# FIXME: it should be in function
             delete_phone(which)
         elif choice == 's':
             show_phones()
         elif choice == 'e':
-             edit_phone()
+            which = input("Which phone do you want to edit? ") # FIXME: it should be in function
+            edit_phone(which)
         else:
             print("Invalid choice.")
             
