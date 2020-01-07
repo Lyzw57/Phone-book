@@ -8,7 +8,7 @@ name_index = 0
 number_index = 1
 phone_header = ["Name", "Phone Number"]
 
-def is_choice_proper(which: str): -> bool
+def is_choice_proper(which: str):
     """Checking if selected index is valid.
 
     Arguments:
@@ -20,8 +20,8 @@ def is_choice_proper(which: str): -> bool
     if not which.isdigit():
         print(f"{which} need to be number of record!")
         return False
-    int(which)
-    if which < 1 and which > len(phones_list):
+    which = int(which)
+    if which < 1 or which > len(phones_list):
         print(f"{which} need to be number of record!")
         return False
     return True
@@ -109,7 +109,8 @@ def main_loop():
         elif choice == 'n':
             create_phone()
         elif choice == 'd':
-            delete_phone()
+            which = input("Which phone do you want to delete? ")
+            delete_phone(which)
         elif choice == 's':
             show_phones()
         elif choice == 'e':
