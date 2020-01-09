@@ -2,6 +2,7 @@
 
 import os
 import csv
+import sys
 
 phones_list = []
 name_index = 0
@@ -12,12 +13,11 @@ def is_choice_proper(which: str):
     """Checking if selected index is valid.
 
     Arguments:
-        which {str} -- choice of record's index in str but had to be digit
+        which str -- choice of record's index in str but had to be digit
     
     Returns:
-        {bool} -- True if argument is digit and index exist, False otherwise
+        bool -- True if argument is digit and index exist, False otherwise
     """
-    # FIXME: i don't like it. I'd like to change this funcion and remove changing to int eery time aswell.
     if not which.isdigit():
         print(f"{which} need to be number of record!")
         return False
@@ -27,27 +27,28 @@ def is_choice_proper(which: str):
         return False
     return True
 
-def delete_phone(which: str):
-    """delete selected record from phones_list
+def select_which() -> int:
+    """Takes phone's index from user and check if it is correct.
     
-    Arguments:
-        which {str} -- record's index choice
+    Returns:
+        int -- index of the record to edit or delete.
     """
+    which = input("Which: ")
     if not is_choice_proper(which):
         return
-    which = int(which) # FIXME: to change, it should be done in function.
+    return int(which)
+
+def delete_phone():
+    """delete selected record from phones_list
+    """
+    which = select_which()
     del(phones_list[which-1])
     print(f"Phone #{which} has been deleted.")
 
-def edit_phone(which: str):
+def edit_phone():
     """Edit record's name nad phone number, user can input it or press only enter to leave it unchagned.
-    
-    Arguments:
-        which {str} -- index of record to edit
     """
-    if not is_choice_proper(which):
-        return
-    which = int(which) # FIXME: to change, it should be done in function.
+    which = select_which()
 
     phone = phones_list[which-1]
 
@@ -91,8 +92,8 @@ def show_phone(phone, index):
     Printing out formatted record with its index number.
     
     Arguments:
-        phone {list} -- list contaning name and phone number
-        index {int} -- index no. of the record
+        phone list -- list contaning name and phone number
+        index int -- index no. of the record
     """
     output_str = f"{index:>3} {phone[name_index]:<20} {phone[number_index]:>16}"
     print(output_str)
@@ -106,7 +107,7 @@ def create_phone():
     phone = [name, phone_number]
     phones_list.append(phone)
 
-def menu_choice():
+def menu_choice(choice_dict):
     """ Find out what the user wants to do next. """
     print("Choose one of the following options?")
     print("   s) Show")
@@ -115,7 +116,7 @@ def menu_choice():
     print("   e) Edit")
     print("   q) Quit")
     choice = input("Choice: ")    
-    if choice.lower() in ['n','d', 's','e', 'q']:
+    if choice.lower() in choice_dict.keys():
         return choice.lower()
     else:
         print(choice +"?" + " That is an invalid option!!!")
@@ -123,28 +124,36 @@ def menu_choice():
 
 
 def main_loop():
-    
+    choice_dict = {
+    'n': create_phone,
+    'd': delete_phone,
+    's': show_phones,
+    'e': edit_phone,
+    'q': sys.exit
+    }
+
     load_phone_list()
     
     while True:
-        choice = menu_choice()
-        if choice == None:
-            continue
-        if choice == 'q':
-            print( "Exiting...")
-            break     # jump out of while loop
-        elif choice == 'n':
-            create_phone()
-        elif choice == 'd':
-            which = input("Which phone do you want to delete? ")# FIXME: it should be in function
-            delete_phone(which)
-        elif choice == 's':
-            show_phones()
-        elif choice == 'e':
-            which = input("Which phone do you want to edit? ") # FIXME: it should be in function
-            edit_phone(which)
-        else:
-            print("Invalid choice.")
+        choice = menu_choice(choice_dict)
+        # if choice == None:
+        #     continue
+        # if choice == 'q':
+        #     print( "Exiting...")
+        #     break     # jump out of while loop
+        # elif choice == 'n':
+        #     create_phone()
+        # elif choice == 'd':
+        #     which = input("Which phone do you want to delete? ")# FIXME: it should be in function
+        #     delete_phone(which)
+        # elif choice == 's':
+        #     show_phones()
+        # elif choice == 'e':
+        #     which = input("Which phone do you want to edit? ") # FIXME: it should be in function
+        #     edit_phone(which)
+        # else:
+        #     print("Invalid choice.")
+        choice_dict[choice]()
             
     save_phone_list()
     
