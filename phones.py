@@ -9,7 +9,7 @@ name_index = 0
 number_index = 1
 phone_header = ["Name", "Phone Number"]
 
-def is_choice_proper(which: str):
+def is_choice_proper(which: str) -> bool:
     """Checking if selected index is valid.
 
     Arguments:
@@ -133,26 +133,10 @@ def main_loop():
     }
 
     load_phone_list()
+    print(phones_list)
     
     while True:
         choice = menu_choice(choice_dict)
-        # if choice == None:
-        #     continue
-        # if choice == 'q':
-        #     print( "Exiting...")
-        #     break     # jump out of while loop
-        # elif choice == 'n':
-        #     create_phone()
-        # elif choice == 'd':
-        #     which = input("Which phone do you want to delete? ")# FIXME: it should be in function
-        #     delete_phone(which)
-        # elif choice == 's':
-        #     show_phones()
-        # elif choice == 'e':
-        #     which = input("Which phone do you want to edit? ") # FIXME: it should be in function
-        #     edit_phone(which)
-        # else:
-        #     print("Invalid choice.")
         choice_dict[choice]()
             
     save_phone_list()
