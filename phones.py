@@ -61,8 +61,11 @@ def edit_phone():
     phone = [new_name, new_number]
     phones_list[which-1] = phone
 
-def save_phone_list(phones_list):
+def save_phone_list(phones_list: list):
     """Save phones_list into csv file.
+
+    Arguments:
+        list -- list of lists containing name-phone number pairs.
     """
     with open("data/myphones.csv", "w") as outfile:
         for phone in phones_list:
