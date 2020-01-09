@@ -64,7 +64,7 @@ def edit_phone():
 def save_phone_list(phones_list):
     """Save phones_list into csv file.
     """
-    with open("data/myphons.csv", "w") as outfile:
+    with open("data/myphones.csv", "w") as outfile:
         for phone in phones_list:
             csv.writer(outfile).writerow(phone)
 
@@ -76,11 +76,10 @@ def load_phone_list() -> list:
         list -- list of lists with pair: name and phone number.
     """
     if os.access("data/myphones.csv",os.F_OK):
-        infile = open("data/myphones.csv")
-        read_phones = csv.reader(infile)
-        for row in read_phones:
-            phones_list.append(row)
-        infile.close()
+        with open("data/myphones.csv", "r") as infile:
+            read_phones = csv.reader(infile)
+            for row in read_phones:
+                phones_list.append(row)
     return phones_list
 
 def show_phones():
