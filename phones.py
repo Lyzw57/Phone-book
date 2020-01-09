@@ -98,7 +98,13 @@ def show_phone(phone, index):
     print(output_str)
 
 def create_phone():
-    pass # TODO: create a record
+    """Takes data from user and store it as new record in phones_list
+    """
+    print("Enter the data for a new phone:")
+    name = input("Enter the name: ")
+    phone_number = input("Enter the phone number: ")
+    phone = [name, phone_number]
+    phones_list.append(phone)
 
 def menu_choice():
     """ Find out what the user wants to do next. """
