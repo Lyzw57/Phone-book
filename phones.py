@@ -2,7 +2,6 @@
 
 import os
 import csv
-import sys
 
 phones_list = []
 name_index = 0
@@ -39,7 +38,7 @@ def select_which() -> int:
     return int(which)
 
 def delete_phone():
-    """delete selected record from phones_list
+    """Delete selected record from phones_list
     """
     which = select_which()
     del(phones_list[which-1])
@@ -49,7 +48,6 @@ def edit_phone():
     """Edit record's name nad phone number, user can input it or press only enter to leave it unchagned.
     """
     which = select_which()
-
     phone = phones_list[which-1]
 
     new_name = input(f"Name: {phones_list[name_index]} | New name: ")
@@ -63,19 +61,27 @@ def edit_phone():
     phone = [new_name, new_number]
     phones_list[which-1] = phone
 
-def save_phone_list():
-    pass # TODO: save phone list
+def save_phone_list(phones_list):
+    """Save phones_list into csv file.
+    """
+    with open("data/myphons.csv", "w") as outfile:
+        for phone in phones_list:
+            csv.writer(outfile).writerow(phone)
 
-def load_phone_list():
+def load_phone_list() -> list:
     """
     If path exist load phone list from simple csv file and store it into list of lists.
+    
+    Retunrs:
+        list -- list of lists with pair: name and phone number.
     """
     if os.access("data/myphones.csv",os.F_OK):
         infile = open("data/myphones.csv")
         read_phones = csv.reader(infile)
         for row in read_phones:
             phones_list.append(row)
-        infile.close() 
+        infile.close()
+    return phones_list
 
 def show_phones():
     """Printing out all the phone numbers with its owners' names.
@@ -129,18 +135,19 @@ def main_loop():
     'd': delete_phone,
     's': show_phones,
     'e': edit_phone,
-    'q': sys.exit
+    'q': "q"
     }
 
-    load_phone_list()
-    print(phones_list)
+    phones_list = load_phone_list()
     
     while True:
         choice = menu_choice(choice_dict)
+        if choice == "q":
+            break
         choice_dict[choice]()
-            
-    save_phone_list()
-    
+
+    save_phone_list(phones_list)
+                
 
 # The following makes this program start running at main_loop()
 # when executed as a stand-alone program.    
